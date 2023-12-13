@@ -13,7 +13,7 @@ config_version=5
 config/name="Pong"
 config/tags=PackedStringArray("20_game_challenge")
 run/main_scene="res://Scenes/Main Stage/stage.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -54,3 +54,4 @@ p2_down={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

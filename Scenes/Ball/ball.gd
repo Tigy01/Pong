@@ -9,8 +9,9 @@ extends CharacterBody2D
 		max_speed = val
 
 var _start_direction:= randi_range(0, 1)
-var _speed= initial_speed
-var _bounces = 0
+var _speed:= initial_speed
+var _bounces:= 0
+var scores:PackedInt32Array = [0,0]
 
 @onready var _speed_incrament: float = (max_speed - initial_speed)/hits_til_max_speed
 @onready var starting_pos: Vector2 = $StartingPos.position
@@ -37,7 +38,7 @@ func _calculate_velocity(paddle: Node):
 	velocity.x = cos(final_angle) * _speed
 	velocity.y = sin(final_angle) * _speed
 	
-	if position.x >= get_viewport_rect().size.x/2.0:
+	if position.x <= paddle.position.x or (scores[0]>scores[1]):
 		velocity.x *= -1
 
 func _start(_gamemode: String):
@@ -61,8 +62,10 @@ func _on_score_area_entered(side: Area2D) -> void:
 	_bounces = 0
 	if side.name.begins_with("Left"):
 		_start_direction = 1
+		scores[1]+=1
 	elif side.name.begins_with("Right"):
 		_start_direction = -1
+		scores[0]+=1
 	else:
 		return
 	
@@ -71,3 +74,4 @@ func _on_score_area_entered(side: Area2D) -> void:
 	velocity.x = _speed
 	velocity.y = 0
 	SignalBus.scored.emit(side)
+	
