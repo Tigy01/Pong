@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxdk0kvd6ipvd"]
+
+[ext_resource type="Script" path="res://Scenes/Paddle/paddle.gd" id="1_mdwry"]
+[ext_resource type="Texture2D" uid="uid://b3r0cqujqsvxs" path="res://Scenes/Paddle/Paddle.png" id="2_th0sh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqxe2"]
+size = Vector2(48, 11.5)
+
+[sub_resource type="Gradient" id="Gradient_1xvlb"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.154839, 0.632258)
+colors = PackedColorArray(0.849105, 0.849105, 0.849105, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6rsct"]
+gradient = SubResource("Gradient_1xvlb")
+fill = 1
+fill_from = Vector2(0.490826, 0.610092)
+fill_to = Vector2(0.908257, 0.0825688)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wnoua"]
+radius = 166.048
+
+[node name="Paddle" type="CharacterBody2D" groups=["Paddle"]]
+script = ExtResource("1_mdwry")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -7)
+texture = ExtResource("2_th0sh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.75)
+shape = SubResource("RectangleShape2D_uqxe2")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(4.76837e-07, -9)
+scale = Vector2(1.125, 0.46875)
+color = Color(0, 0.788235, 0.792157, 1)
+energy = 0.7
+shadow_enabled = true
+shadow_color = Color(0.0313726, 0.0313726, 0.0313726, 0.843137)
+texture = SubResource("GradientTexture2D_6rsct")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_wnoua")
+debug_color = Color(0.211765, 0.603922, 0.588235, 0.419608)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

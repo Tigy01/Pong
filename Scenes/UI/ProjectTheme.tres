@@ -1,0 +1,29 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://duoekascow5ke"]
+
+[ext_resource type="FontFile" uid="uid://yqfia6gl5q2r" path="res://Scenes/UI/KdamThmorPro-Regular.ttf" id="1_kkb3y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drd6u"]
+bg_color = Color(0.164706, 0.172549, 0.254902, 1)
+expand_margin_left = 6.0
+expand_margin_top = 1.0
+expand_margin_right = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_me5pk"]
+bg_color = Color(0.137255, 0.145098, 0.219608, 1)
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwv0p"]
+bg_color = Color(0.105882, 0.113725, 0.176471, 1)
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
+[resource]
+default_font = ExtResource("1_kkb3y")
+Button/colors/font_color = Color(0.768627, 0, 0.231373, 1)
+Button/colors/font_focus_color = Color(0.768627, 0, 0.231373, 1)
+Button/colors/font_hover_color = Color(1, 0.419608, 0.47451, 1)
+Button/colors/font_pressed_color = Color(0.564706, 0, 0.160784, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_drd6u")
+Button/styles/normal = SubResource("StyleBoxFlat_me5pk")
+Button/styles/pressed = SubResource("StyleBoxFlat_gwv0p")

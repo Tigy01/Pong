@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqrr4bft66va4"]
+
+[ext_resource type="PackedScene" uid="uid://cqa48uwhlgwn" path="res://Scenes/UI/UI.tscn" id="1_400lu"]
+[ext_resource type="PackedScene" uid="uid://bxdk0kvd6ipvd" path="res://Scenes/Paddle/Paddle.tscn" id="2_10cv2"]
+[ext_resource type="PackedScene" uid="uid://b2tm23f1ecsu3" path="res://Scenes/Ball/Ball.tscn" id="3_4r71e"]
+[ext_resource type="Script" path="res://Scenes/Main Stage/shakeable_camera.gd" id="4_q5dms"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2l2wf"]
+size = Vector2(426, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bbue"]
+size = Vector2(20, 240)
+
+[node name="Stage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" parent="." instance=ExtResource("1_400lu")]
+layout_mode = 1
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="Paddle" parent="Stage" instance=ExtResource("2_10cv2")]
+position = Vector2(7, 98)
+rotation = 1.5708
+
+[node name="Ball" parent="Stage" groups=["Ball"] instance=ExtResource("3_4r71e")]
+position = Vector2(206, 90)
+maximum_angle = 55.0
+hits_til_max_speed = 20
+max_speed = 500.0
+
+[node name="Paddle2" parent="Stage" instance=ExtResource("2_10cv2")]
+position = Vector2(419, 104)
+rotation = -1.57081
+
+[node name="TopWall" type="StaticBody2D" parent="Stage"]
+position = Vector2(214, -10)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stage/TopWall"]
+position = Vector2(-0.875, 0)
+shape = SubResource("RectangleShape2D_2l2wf")
+
+[node name="BottomWall" type="StaticBody2D" parent="Stage"]
+position = Vector2(214, 250)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stage/BottomWall"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_2l2wf")
+
+[node name="LeftZone" type="Area2D" parent="Stage"]
+position = Vector2(-10, 120)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stage/LeftZone"]
+shape = SubResource("RectangleShape2D_3bbue")
+debug_color = Color(0.184314, 0.423529, 1, 0.419608)
+
+[node name="RightZone" type="Area2D" parent="Stage"]
+position = Vector2(436, 120)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Stage/RightZone"]
+shape = SubResource("RectangleShape2D_3bbue")
+debug_color = Color(0.878431, 0, 0.392157, 0.419608)
+
+[node name="ShakeableCamera" type="Camera2D" parent="Stage"]
+position = Vector2(213, 120)
+script = ExtResource("4_q5dms")

@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2tm23f1ecsu3"]
+
+[ext_resource type="Script" path="res://Scenes/Ball/ball.gd" id="1_j85vj"]
+[ext_resource type="Texture2D" uid="uid://bwrao2naxpmr7" path="res://Scenes/Ball/Ball.png" id="2_twxjw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ehh8j"]
+radius = 6.0
+
+[sub_resource type="Gradient" id="Gradient_m7jsw"]
+offsets = PackedFloat32Array(0, 0.735484)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5fjup"]
+gradient = SubResource("Gradient_m7jsw")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Ball" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_j85vj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_twxjw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ehh8j")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ehh8j")
+debug_color = Color(0, 0, 0.701961, 0)
+
+[node name="StartingPos" type="Marker2D" parent="."]
+position = Vector2(213, 120)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0, 0, 1)
+texture = SubResource("GradientTexture2D_5fjup")
+texture_scale = 3.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_score_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_player_collided"]
